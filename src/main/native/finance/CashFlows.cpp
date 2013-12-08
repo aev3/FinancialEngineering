@@ -29,7 +29,9 @@ namespace finance
     * 	PV = \displaystyle\sum_{i=1}^{n} \frac{C_t}{(1+y)^{n}}
     * \f]
     */
-    const double CashFlows::DiscountedPresentValueOfCashFlows(const double C, const double rate, int term)
+    const double CashFlows::DiscountedPresentValueOfCashFlows(const double C,
+                    const double rate,
+                    int term)
     {
         double pV = 0.0;
         double z = 1 + rate;

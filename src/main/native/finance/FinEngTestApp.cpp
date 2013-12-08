@@ -8,6 +8,7 @@
 
 #include <iostream>
 
+#include "Annuities.hpp"
 #include "TimeValueOfMoney.hpp"
 #include "CashFlows.hpp"
 
@@ -52,11 +53,17 @@ int main(int argc, const char *argv[])
 	std::cout << "Compounded Future Value of Present Payment (360*4)= "
 			<< cfv360 << std::endl;
 
-	double cfv_cont = tvm.ContinuousCompoundingFutureValueOfPresentPayment(rate,
-			years, payment);
-	std::cout
-			<< "Continuous Compounded Future Value of Present Payment (360*inf)= "
-			<< cfv_cont << std::endl;
+    double cfv_cont = tvm.ContinuousCompoundingFutureValueOfPresentPayment(rate,
+            years, payment);
+    std::cout
+            << "Continuous Compounded Future Value of Present Payment (360*inf)= "
+            << cfv_cont << std::endl;
+
+    finance::Annuities ann;
+    double ord_ann = ann.OrdinaryAnnuity(payment, years, rate);
+    std::cout
+            << "Future Value of Ordinary Annuity = "
+            << ord_ann << std::endl;
 
 	return 0;
 

@@ -140,6 +140,7 @@ SHARED_LINK 		= ${CXX} -shared
 #############################################################################
 
 LIB_OBJS 	= 	${LIB_SRC_DIR}/CashFlows.o \
+			${LIB_SRC_DIR}/Annuities.o \
 			${LIB_SRC_DIR}/TimeValueOfMoney.o 
 
 APP_OBJ		= 	${APP_SRC_DIR}/FinEngTestApp.o
