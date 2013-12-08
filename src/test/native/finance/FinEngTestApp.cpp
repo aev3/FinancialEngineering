@@ -65,6 +65,26 @@ int main(int argc, const char *argv[])
             << "Future Value of Ordinary Annuity = "
             << ord_ann << std::endl;
 
+    double fv_ann_due = ann.FutureValueOfAnnuityDue(1000.00, 5, 0.05);
+    std::cout
+            << "Future Value of Annuity Due = "
+            << fv_ann_due << std::endl;
+
+    double pv_ann_due = ann.PresentValueOfAnnuityDue(1000.00, 5, 0.05);
+    std::cout
+            << "Present Value of Annuity Due = "
+            << pv_ann_due << std::endl;
+
+    double pv_gen_ann = ann.PresentValueOfGeneralAnnuity(1000.00, 5, 0.05, 1);
+    std::cout
+            << "Present Value of General Annuity = "
+            << pv_gen_ann << std::endl;
+
+    double pv_gen_ann_ex = ann.PresentValueOfGeneralAnnuity(5000.00, 9, 0.07125, 12);
+    std::cout
+            << "Present Value of General Annuity [Example 3.2.2] = "
+            << pv_gen_ann_ex << std::endl;
+
 	return 0;
 
 }

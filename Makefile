@@ -37,16 +37,16 @@ APP_NAME 		= FinEngTestAppD
 endif
 
 ifdef DEBUG
-TEST_SUITE_NAME 	= VanGoTestSuiteD
+TEST_SUITE_NAME 	= FinEngTestSuiteD
 else
-TEST_SUITE_NAME 	= VanGoTestSuite
+TEST_SUITE_NAME 	= FinEngTestSuite
 endif  #DEBUG
 
 
 LIB_SRC_DIR 		= ./src/main/native/finance
-APP_SRC_DIR 		= ./src/main/native/finance
+APP_SRC_DIR 		= ./src/test/native/finance
 
-TEST_SRC_DIR		= ./src/test/native/vango
+TEST_SRC_DIR		= ./src/test/native/finance
 DATA_SRC_DIR		= ./data
 
 BUILD_DIR		= build
@@ -89,17 +89,19 @@ CCLDFLAGS 		= ${CCFLAGS} ${SYSLDFLAGS}
 
 BOOST_LIBS 		= -L/usr/local64/lib -lboost_regex-mt
 
-CPPUNIT_LIB 		= -L/usr/local64/lib -lcppunit
+CPPUNIT_LIB 	= -L/usr/local64/lib -lcppunit
 
 LOG4CXX_LIB		= -L/usr/local64/lib -llog4cxx
 
 ifdef MACOSX
-LIB_LIBS 		= ${BOOST_LIBS} 
+LIB_LIBS 		= 
+#${BOOST_LIBS} 
 APP_LIBS		= 
 #${BOOST_LIBS} 
 TEST_LIBS		= -L/usr/lib -ldl ${CPPUNIT_LIB}
 else
-LIB_LIBS 		= ${BOOST_LIBS}
+LIB_LIBS 		= 
+#${BOOST_LIBS}
 APP_LIBS		= 
 #${BOOST_LIBS} 
 TEST_LIBS		= ${CPPUNIT_LIB}
@@ -121,7 +123,7 @@ CXXCOMPILE 		= ${CXX} ${CXXLDFLAGS} ${INCLUDES} ${DEFINES} -DPIC -fPIC
 
 CCCOMPILE 		= ${CC} ${CCLDFLAGS} ${INCLUDES} ${DEFINES} -DPIC -fPIC 
 
-SHARED_LINK 		= ${CXX} -shared
+SHARED_LINK 	= ${CXX} -shared
 
 #############################################################################
 # Suffix/Compiler suffix mappings					      					#
@@ -140,10 +142,10 @@ SHARED_LINK 		= ${CXX} -shared
 #############################################################################
 
 LIB_OBJS 	= 	${LIB_SRC_DIR}/CashFlows.o \
-			${LIB_SRC_DIR}/Annuities.o \
-			${LIB_SRC_DIR}/TimeValueOfMoney.o 
+				${LIB_SRC_DIR}/Annuities.o \
+				${LIB_SRC_DIR}/TimeValueOfMoney.o 
 
-APP_OBJ		= 	${APP_SRC_DIR}/FinEngTestApp.o
+TEST_APP_OBJ		= 	${APP_SRC_DIR}/FinEngTestApp.o
 
 UNIT_TEST_OBJS	= 	${TEST_SRC_DIR}/ClusteringEngineTest.o
 
@@ -182,9 +184,11 @@ lib:: ${LIB_OBJS}
 		${LIB_OBJS} ${LIB_LIBS}
 	${AR} ${LIB_BUILD_DIR}/${STATIC_LIB} ${LIB_OBJS} 
 
-app:: lib ${APP_OBJ}
+app:: lib ${TEST_APP_OBJ}
 	${CXX} ${CXXLDFLAGS} -o ${APP_BUILD_DIR}/${APP_NAME} \
-		${LIB_OBJS} ${APP_OBJ} ${APP_LIBS}
+		${LIB_OBJS} ${TEST_APP_OBJ} 
+
+#${APP_LIBS}
 
 unit-tests:: ${LIB_OBJS} ${APP_OBJS} ${UNIT_TEST_OBJS}
 	${CXX} ${CXXLDFLAGS} -o ${TEST_BUILD_DIR}/${TEST_SUITE_NAME} \
