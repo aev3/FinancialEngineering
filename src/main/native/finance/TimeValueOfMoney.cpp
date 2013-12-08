@@ -16,78 +16,88 @@ namespace finance
     }
 
     /**
-    * \f$
-    * \textrm{Algorithm for continuous compounding: where } P \textrm{ represents
-    * the present value, }  r  \textrm{ represents the interest rate, and }
-    * n  \textrm{ represents the number of periods. }
-    * \f$
-    *
-    * \f[
-    *   P = FV \times (1 + r)^{-n}
-    * \f]
+    * <p>
+    * Discounted present value of a future payment where:
+    * <i>C</i> = the payment amount; i.e., cash,
+    * <i>n</i> = the number of periods or years, and
+    * <i>r</i> = the interest rate
+    * </p>
     */
-    const double TimeValueOfMoney::DiscountedPresentValueOfFuturePayment(const double rate,
-        const int periods,
-        const double fv)
+    const double TimeValueOfMoney::DiscountedPresentValueOfFuturePayment(const double C,
+        const int n,
+        const double r)
     {
-        return fv * std::pow(1 + rate, -periods);
+        /*
+        * \f[
+        *   P = C \times (1 + r)^{-n}
+        * \f]
+        */
+        return C * std::pow(1 + r, -n);
     }
 
     /**
-    * \f$
-    * \textrm{Algorithm for continuous compounding: where } P \textrm{ represents
-    * the present value, }  r  \textrm{ represents the interest rate, and }
-    * n  \textrm{ represents the number of periods. }
-    * \f$
-    *
-    * \f[
-    *   FV = P\left(1 + r \right)^n
-    * \f]
+    * <p>
+    * Algorithm for obtaining future value of a present payment where:
+    * <i>C</i> = the payment amount; i.e., cash,
+    * <i>n</i> = the number of periods or years, and
+    * <i>r</i> = the interest rate
+    * </p>
     */
-    const double TimeValueOfMoney::FutureValueOfPresentPayment(const double rate,
-        const int periods,
-        const double pv)
+    const double TimeValueOfMoney::FutureValueOfPresentPayment(const double C,
+        const int n,
+        const double r)
     {
-        return pv * std::pow(1 + rate, periods);
+        /*
+        * \f[
+        *   FV = P\left(1 + r \right)^n
+        * \f]
+        */
+        return C * std::pow(1 + r, n);
     }
 
     /**
-    * \f$
-    * \textrm{Algorithm for discrete compounding: where } P \textrm{ represents
-    * the present value, }  r  \textrm{ represents the interest rate, }
-    * n  \textrm{ represents the number of periods, and }
-    * m \textrm{ represents the number of times interest is compounded for the
-    * period. }
-    * \f$
-    *
-    * \f[
-    *   FV = P\left(1 + \frac{r}{m}\right)^{nm}
-    * \f]
+    * <p>
+    * Algorithm for discrete compounding to obtain future value of a present
+    * payments where:
+    * <i>C</i> = the payment amount; i.e., cash,
+    * <i>n</i> = the number of periods or years,
+    * <i>r</i> = the interest rate, and
+    * <i>p</i> = the number of compounding periods per annum
+    * </p>
     */
-    const double TimeValueOfMoney::CompoundingFutureValueOfPresentPayment(const double rate,
-        const int years,
-        const double pv,
-        const int per_annum)
+    const double TimeValueOfMoney::DiscreteCompoundingFutureValueOfPresentPayment(const double C,
+        const int n,
+        const double r,
+        const int p)
     {
-        return pv * std::pow(1 + (rate / per_annum), per_annum * years);
+        /*
+        * \f[
+        *   FV = P\left(1 + \frac{r}{m}\right)^{nm}
+        * \f]
+        */
+       return C * std::pow(1 + (r / p), p * n);
     }
 
     /**
-    * \f$
-    * \textrm{Algorithm for continuous compounding: where } P \textrm{ represents
-    * the present value, }  r  \textrm{ represents the interest rate, and }
-    * n  \textrm{ represents the number of periods. }
-    * \f$
-    *
-    * \f[
-    *   FV = Pe^{rn}
-    * \f]
+    * <p>
+    * Algorithm for obtaining future value of a present payment using
+    * continuous compounding where:
+    * <i>C</i> = the payment amount; i.e., cash,
+    * <i>n</i> = the number of periods or years, and
+    * <i>r</i> = the interest rate
+    * </p>
     */
-    const double TimeValueOfMoney::ContinuousCompoundingFutureValueOfPresentPayment(const double rate,
-        const int years,
-        const double pv)
+    const double TimeValueOfMoney::ContinuousCompoundingFutureValueOfPresentPayment(
+                    const double C,
+                    const int n,
+                    const double r)
     {
-        return pv * std::exp(years * rate);
+        /*
+        * \f[
+        *   FV = Pe^{rn}
+        * \f]
+        */
+        return C * std::exp(n * r);
     }
 
     TimeValueOfMoney::~TimeValueOfMoney()

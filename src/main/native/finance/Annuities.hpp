@@ -46,8 +46,8 @@ namespace finance
              * For <b>Annuity Due</b>, cash flows are received at the beginning of each
              * year. The <b>Present Value</b> is as follows:
              * \f$
-             * \displaystyle\sum_{i=1}^{n} C\left(1 + r\right)^{-i} = C\frac{1-(1+r)^{-n}}{r}
-             * (1 + r).
+             * \displaystyle\sum_{i=1}^{n} C\left(1 + r\right)^{-i}
+             * = C\frac{1-(1+r)^{-n}}{r}.
              * \f$
              * </p>
              */
@@ -55,8 +55,8 @@ namespace finance
 
             /**
              * <p>
-             * For <b>General Annuity</b>, cash flows are received at the beginning of each
-             * year. The <b>Present Value</b> is as follows:
+             * For <b>General Annuity</b>, cash flows are received at the
+             * beginning of each year. The <b>Present Value</b> is as follows:
              * \f$
              * \displaystyle\sum_{i=1}^{nm} C\left(1 + \frac{r}{m}\right)^{-i}
              * = C\frac{1-(1+\frac{r}{m})^{-nm}}{\frac{r}{m}}.
@@ -64,6 +64,17 @@ namespace finance
              * </p>
              */
             const double PresentValueOfGeneralAnnuity(const double, const int, const double, const int);
+
+            /**
+             * <p>
+             * For <b>Perpetual Annuity</b>, cash flows are received at the
+             * beginning of each year. The <b>Present Value</b> is as follows:
+             * \f$
+             * PV = \frac{C}{r}.
+             * \f$
+             * </p>
+             */
+            const double PresentValueOfPerpetualAnnuity(const double, const double);
 
             virtual ~Annuities();
     };

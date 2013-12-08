@@ -17,7 +17,7 @@ namespace finance
 
         CashFlows();
 
-        const double DiscountedPresentValueOfCashFlows(const double C, const double rate, int term);
+        const double DiscountedPresentValueOfCashFlows(const double, int, const double);
 
         virtual ~CashFlows();
 

@@ -30,15 +30,15 @@ namespace finance
     * \f]
     */
     const double CashFlows::DiscountedPresentValueOfCashFlows(const double C,
-                    const double rate,
-                    int term)
+                    int n,
+                    const double r)
     {
         double pV = 0.0;
-        double z = 1 + rate;
-        while(term > 0)
+        double z = 1 + r;
+        while(n > 0)
         {
-            pV = pV + C / std::pow(z, term);
-            --term;
+            pV = pV + C / std::pow(z, n);
+            --n;
         }
 
         return pV;
