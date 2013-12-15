@@ -15,7 +15,6 @@ namespace finance
     Annuities::Annuities()
     {
         // TODO Auto-generated constructor stub
-
     }
 
     /**

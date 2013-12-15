@@ -65,13 +65,13 @@ DATA_INSTALL_DIR	= ${HOME}/lib/fin_eng_data
 CC			= gcc
 CXX			= g++
 
-CCFLAGS 		= ${CFLAGS} -Wall -Wno-deprecated -O1
+CCFLAGS 		= ${CFLAGS} -Wall -Wno-deprecated -O1 -Wc++11-extensions
 
-ifndef CPP_EXT
-CXXFLAGS 		= ${CFLAGS} -Wall -O2
-else
-CXXFLAGS 		= -std=c++11 ${CFLAGS} -Wall -O2
-endif # CPP_EXT
+#ifndef CPP_EXT
+#CXXFLAGS 		= ${CFLAGS} -Wall -O2
+#else
+CXXFLAGS 		= -std=c++11 ${CFLAGS} -Wall -O2 -Wc++11-extensions
+#endif # CPP_EXT
 
 ifdef DEBUG
 SYSLDFLAGS 		= -g -O
@@ -142,8 +142,10 @@ SHARED_LINK 	= ${CXX} -shared
 #############################################################################
 
 LIB_OBJS 	= 	${LIB_SRC_DIR}/CashFlows.o \
+				${LIB_SRC_DIR}/Amortization.o \
 				${LIB_SRC_DIR}/Annuities.o \
-				${LIB_SRC_DIR}/TimeValueOfMoney.o 
+				${LIB_SRC_DIR}/TimeValueOfMoney.o \
+				${LIB_SRC_DIR}/NewtonsMethod.o 
 
 TEST_APP_OBJ		= 	${APP_SRC_DIR}/FinEngTestApp.o
 
@@ -179,7 +181,7 @@ setup::
 
 #	${MKDIR} ${TEST_BUILD_DIR}	
 
-lib:: ${LIB_OBJS}
+lib:: setup ${LIB_OBJS}
 	${SHARED_LINK} ${CXXLDFLAGS} -o ${LIB_BUILD_DIR}/${SHARED_LIB} \
 		${LIB_OBJS} ${LIB_LIBS}
 	${AR} ${LIB_BUILD_DIR}/${STATIC_LIB} ${LIB_OBJS} 

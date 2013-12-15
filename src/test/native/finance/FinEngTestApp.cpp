@@ -7,10 +7,15 @@
 //
 
 #include <iostream>
+#include <iomanip>      // std::setprecision
 
+#include <cmath>        // std::sqrt
+
+#include "Amortization.hpp"
 #include "Annuities.hpp"
 #include "TimeValueOfMoney.hpp"
 #include "CashFlows.hpp"
+#include "NewtonsMethod.hpp"
 
 int main(int argc, const char *argv[])
 {
@@ -95,7 +100,30 @@ int main(int argc, const char *argv[])
             << pv_gen_comp_perp << std::endl;
 
 
-	return 0;
+    double pv_gen_ann_mtge = ann.PresentValueOfGeneralAnnuity(250000, 15, 0.08, 12);
+    std::cout
+            << "Present Value of General Annuity [Mortgage] = "
+            << pv_gen_ann_mtge << std::endl;
+
+    /* Start Amortization */
+    finance::Amortization amortization;
+    double monthly_payment = amortization.payment(165740, 10, 0.03125, 12);
+    finance::int_vec_double_map map =
+                    amortization.amortize(165740, 10, 0.03125, 12);
+    std::cout <<  "Monthly Principal And Interest Payment Amount = "
+                    << monthly_payment  << std::endl;
+    amortization.print(map);
+
+    /* Start square root implementations */
+    std::cout <<  std::setprecision(16) << std::fixed
+                    << "Newton's method for square root of 1234567890.00 = "
+                    << util::NewtonsMethod::sqrt(1234567890.00) << std::endl;
+
+    std::cout <<  std::setprecision(16) << std::fixed
+                    << "C implementation of square root of 1234567890.00 = "
+                    << std::sqrt(1234567890.00) << std::endl;
+
+    return 0;
 
 }
 
