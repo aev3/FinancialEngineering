@@ -52,7 +52,7 @@ namespace finance
         *   FV = P\left(1 + r \right)^n
         * \f]
         */
-        return C * std::pow(1 + r, n);
+        return( C * std::pow(1 + r, n) );
     }
 
     /**
@@ -75,7 +75,7 @@ namespace finance
         *   FV = P\left(1 + \frac{r}{m}\right)^{nm}
         * \f]
         */
-       return C * std::pow(1 + (r / p), p * n);
+       return( C * std::pow(1 + (r / p), p * n) );
     }
 
     /**
@@ -97,7 +97,7 @@ namespace finance
         *   FV = Pe^{rn}
         * \f]
         */
-        return C * std::exp(n * r);
+        return( C * std::exp(n * r) );
     }
 
     TimeValueOfMoney::~TimeValueOfMoney()

@@ -36,6 +36,12 @@ else
 APP_NAME 		= FinEngTestAppD
 endif
 
+ifndef DEBUG
+OPR_NAME 		= OptionPricingTestApp
+else
+OPR_NAME 		= OptionPricingTestAppD
+endif
+
 ifdef DEBUG
 TEST_SUITE_NAME 	= FinEngTestSuiteD
 else
@@ -65,13 +71,11 @@ DATA_INSTALL_DIR	= ${HOME}/lib/fin_eng_data
 CC			= gcc
 CXX			= g++
 
-CCFLAGS 		= ${CFLAGS} -Wall -Wno-deprecated -O1 -Wc++11-extensions
+CCWARNINGS		= -Wall
+CXXWARNINGS		= -Wall
 
-#ifndef CPP_EXT
-#CXXFLAGS 		= ${CFLAGS} -Wall -O2
-#else
-CXXFLAGS 		= -std=c++11 ${CFLAGS} -Wall -O2 -Wc++11-extensions
-#endif # CPP_EXT
+CCFLAGS 		= ${CFLAGS} ${CCWARNINGS} -DPIC -fPIC -O2
+CXXFLAGS 		= -std=c++11 ${CFLAGS} ${CXXWARNINGS} -DPIC -fPIC -O2 -fpermissive
 
 ifdef DEBUG
 SYSLDFLAGS 		= -g -O
@@ -141,15 +145,19 @@ SHARED_LINK 	= ${CXX} -shared
 # LIB/BIN Objects							      							#
 #############################################################################
 
-LIB_OBJS 	= 	${LIB_SRC_DIR}/CashFlows.o \
-				${LIB_SRC_DIR}/Amortization.o \
+LIB_OBJS 	= 	${LIB_SRC_DIR}/Amortization.o \
 				${LIB_SRC_DIR}/Annuities.o \
-				${LIB_SRC_DIR}/TimeValueOfMoney.o \
-				${LIB_SRC_DIR}/NewtonsMethod.o 
+				${LIB_SRC_DIR}/BinomialOption.o \
+				${LIB_SRC_DIR}/CashFlows.o \
+				${LIB_SRC_DIR}/NewtonsMethod.o \
+				${LIB_SRC_DIR}/OptionPricing.o \
+				${LIB_SRC_DIR}/TimeValueOfMoney.o 
 
-TEST_APP_OBJ		= 	${APP_SRC_DIR}/FinEngTestApp.o
+APP_OBJ 	= 	${APP_SRC_DIR}/FinEngTestApp.o 
+				
+OPR_OBJ		= 	${APP_SRC_DIR}/OptionPricingTest.o
 
-UNIT_TEST_OBJS	= 	${TEST_SRC_DIR}/ClusteringEngineTest.o
+UNIT_TEST_OBJS		= 	${TEST_SRC_DIR}/FinEngTestApp.o
 
 #############################################################################
 # Common commands used to install and clean/uninstall bin/lib artifacts	 	#
@@ -173,28 +181,25 @@ STATIC_LINK 			= ${CXX} -static
 # Build Targets								     	 						#
 #############################################################################
 
-all:: setup lib app # unit-tests
+all:: setup lib app opr # unit-tests
 
 setup::
 	${MKDIR} ${LIB_BUILD_DIR}	
 	${MKDIR} ${APP_BUILD_DIR}
 
-#	${MKDIR} ${TEST_BUILD_DIR}	
-
-lib:: setup ${LIB_OBJS}
+lib:: ${LIB_OBJS}
 	${SHARED_LINK} ${CXXLDFLAGS} -o ${LIB_BUILD_DIR}/${SHARED_LIB} \
-		${LIB_OBJS} ${LIB_LIBS}
+		${LIB_OBJS} ${CXXLIBS}
 	${AR} ${LIB_BUILD_DIR}/${STATIC_LIB} ${LIB_OBJS} 
 
-app:: lib ${TEST_APP_OBJ}
+app:: lib ${APP_OBJ}
 	${CXX} ${CXXLDFLAGS} -o ${APP_BUILD_DIR}/${APP_NAME} \
-		${LIB_OBJS} ${TEST_APP_OBJ} 
+		${APP_OBJ} ${LIB_OBJS} ${CXXLIBS}
 
-#${APP_LIBS}
+opr:: lib ${OPR_OBJ}
+	${CXX} ${CXXLDFLAGS} -o ${APP_BUILD_DIR}/${OPR_NAME} \
+		${OPR_OBJ} ${LIB_OBJS} ${CXXLIBS}
 
-unit-tests:: ${LIB_OBJS} ${APP_OBJS} ${UNIT_TEST_OBJS}
-	${CXX} ${CXXLDFLAGS} -o ${TEST_BUILD_DIR}/${TEST_SUITE_NAME} \
-		${LIB_OBJS} ${APP_OBJS} ${UNIT_TEST_OBJS} ${TEST_LIBS}
 
 #############################################################################
 # Install Targets							      							#

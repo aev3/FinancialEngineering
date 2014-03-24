@@ -40,7 +40,7 @@ namespace finance
            fV = fV + C * std::pow(1 + r, i);
         }
 
-        return fV;
+        return ( fV );
     }
 
 
@@ -61,7 +61,7 @@ namespace finance
          * (1 + r).
          * \f$
          */
-        return C * ((std::pow(1 + r, n) - 1 ) / r) * (1 + r);
+        return ( C * ((std::pow(1 + r, n) - 1 ) / r) * (1 + r) );
     }
 
 
@@ -83,7 +83,7 @@ namespace finance
          * \displaystyle\sum_{i=1}^{n} C\left(1 + r\right)^{-i} = C\frac{1-(1+r)^{-n}}{r}
          * \f$
          */
-        return ( C / r ) * ( 1 - ( 1 / std::pow( 1 + r, n ) ) ) * ( 1 + r );
+        return ( ( C / r ) * ( 1 - ( 1 / std::pow( 1 + r, n ) ) ) * ( 1 + r ) );
     }
 
 
@@ -121,6 +121,7 @@ namespace finance
     const double Annuities::PresentValueOfPerpetualAnnuity(const double C, const double r)
     {
         /*
+         * \f$
          * PV = \frac{C}{r}.
          * \f$
          */

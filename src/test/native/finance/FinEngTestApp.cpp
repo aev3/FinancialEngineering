@@ -122,8 +122,8 @@ int main(int argc, const char *argv[])
     std::cout <<  std::setprecision(16) << std::fixed
                     << "C implementation of square root of 1234567890.00 = "
                     << std::sqrt(1234567890.00) << std::endl;
-
-    return 0;
+    
+    return(0);
 
 }
 
