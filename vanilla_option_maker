@@ -1,0 +1,64 @@
+#
+# Application Makefile
+#
+BUILD_DIR	=	build
+APP_DIR		= 	${BUILD_DIR}/bin
+LIB_DIR		=   ${BUILD_DIR}/lib
+SRC_DIR 	= 	src/main/native/finance
+TEST_DIR 	= 	src/test/native/finance
+#
+ifndef DEBUG
+LIB_NAME 	= libVanillaOption
+else
+LIB_NAME 	= libVanillaOptionD
+endif
+#
+LIB_OBJ 	= 	${SRC_DIR}/VanillaOption.o
+APP_OBJ		=	${TEST_DIR}/VanillaOptionTest.o
+APP_NAME	=	VanillaOption
+#
+LIB_VERSION 		= 1.0.1
+SHARED_LIB_SUFFIX 	= dylib
+SHARED_LIB 			= ${LIB_NAME}-${LIB_VERSION}.${SHARED_LIB_SUFFIX}
+STATIC_LIB_SUFFIX	= a
+STATIC_LIB			= ${LIB_NAME}-${LIB_VERSION}.${STATIC_LIB_SUFFIX}
+#
+CC			= gcc
+CXX			= g++
+WARNINGS	= -Wall
+ARCH 		= -arch x86_64
+CXXFLAGS 	= -std=c++11 ${WARNINGS} -DPIC -fPIC -O2 -fpermissive ${ARCH}
+INCLUDES 	= -I ./${SRC_DIR} -I /usr/local/include 
+CXXCOMPILE 	= ${CXX} ${CXXFLAGS} ${INCLUDES}
+#	
+.SUFFIXES: .cpp
+.cpp.o:
+	${CXXCOMPILE} -c $< -o $@
+#
+MKDIR 		= mkdir -p
+SHARED_LINK = ${CXXCOMPILE} -shared
+AR			= ar cru
+STATIC_LINK = ${CXXCOMPILE} -static
+#
+all: setup lib app
+#
+setup::
+	${MKDIR} ${APP_DIR} 
+	${MKDIR} ${LIB_DIR} 
+#	
+lib:: ${LIB_OBJ}
+	${SHARED_LINK} -o ${LIB_DIR}/${SHARED_LIB} ${LIB_OBJ} 
+	${AR} ${LIB_DIR}/${STATIC_LIB} ${LIB_OBJ}
+#
+app:: lib ${APP_OBJ}
+	${CXXCOMPILE} -o ${APP_DIR}/${APP_NAME} ${APP_OBJ} ${LIB_OBJ}
+#
+clean::
+	${RM} ${LIB_OBJ}
+	${RM} ${LIB_DIR}/${SHARED_LIB}
+	${RM} ${LIB_DIR}/${STATIC_LIB}
+	${RM} ${APP_OBJ}
+	${RM} ${APP_DIR}/${APP_NAME}
+#
+#
+# EoF
