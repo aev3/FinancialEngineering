@@ -117,7 +117,7 @@ int main(int argc, const char *argv[])
     /* Start square root implementations */
     std::cout <<  std::setprecision(16) << std::fixed
                     << "Newton's method for square root of 1234567890.00 = "
-                    << util::NewtonsMethod::sqrt(1234567890.00) << std::endl;
+                    << finance::NewtonsMethod::sqrt(1234567890.00) << std::endl;
 
     std::cout <<  std::setprecision(16) << std::fixed
                     << "C implementation of square root of 1234567890.00 = "

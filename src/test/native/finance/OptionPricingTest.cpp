@@ -34,10 +34,12 @@ main (int argc, const char *argv[])
     double Ep = 12.5;
     int Ns = 100;
     double R = 0.01;
+
     /* Start Time Value of Money */
     finance::OptionPricing opr;
     double value1 = opr.formula (Sp, Pu, Pd, Op, Ep, Ns, R);
     std::cout << "VALUE1 = " << value1 << std::endl;
+
     /**
      * cP = call price
      * pP = put price
@@ -49,11 +51,15 @@ main (int argc, const char *argv[])
     double pP = 10.0;
     double X = 40.0;
     double D = 0.0;
+    /*
     double value2 = opr.putCallParity (cP, pP, X, D, R);
     std::cout << "VALUE2 = " << value2 << std::endl;
+    */
 
+    /*
     double value3 = opr.pricing (cP, pP, X, D, R);
     std::cout << "VALUE3 = " << value3 << std::endl;
+    */
 
     /**
      * @param S - Spot Price [30.00]
@@ -61,21 +67,45 @@ main (int argc, const char *argv[])
      * @param r - Interest Rate per period [0.10]
      * @param u - Up movement
      * @param d - Down movement
-     */
+     *
     double value4 = opr.SinglePeriodEuroCall(30.00, 34.00, 0.10, 45.00, 15.00);
     std::cout << "VALUE4 = " << value4 << std::endl;
+    */
 
     finance::BinomialOption bo;
+    /*
     bo.setOptionType(finance::OPT_TYPE::EURO);
     bo.setStockPrice(30.00);
     bo.setExercisePrice(34.00);
     bo.setRiskFreeRate(0.10);
     bo.setSigma(0.00004);
     bo.setSteps(1);
-    bo.setCurrentDate(0);
-    bo.setMaturityDate(1);
+    bo.setCurrentDate(1);
+    bo.setMaturityDate(2);
+
     double value5 = bo.price();
     std::cout << "VALUE5 = " << value5 << std::endl;
+    */
+
+    /*
+    private static final double S  = 100.00;
+    private static final double X   = 102.00;
+    private static final double r   = 1.02;
+    private static final double u   = 1.00;
+    private static final double d   = 1.05;
+    */
+    double value6 = bo.pricingEuroCall(100.00, 102.00, 1.02, 1.00, 1.05);
+    std::cout << "VALUE6 = " << value6 << std::endl;
+
+    /*
+    private static final double S  = 100.00;
+    private static final double X   = 110.00;
+    private static final double r   = 1.10;
+    private static final double u   = 1.20;
+    private static final double d   = 0.90;
+    */
+    double value7 = bo.onePeriodPricing(100.00, 110.00, 1.10, 1.20, 0.90);
+    std::cout << "VALUE7 = " << value7 << std::endl;
 
     return (0);
 }

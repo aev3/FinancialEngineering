@@ -1,7 +1,6 @@
-//
-// Created by Art Vossberg on 07-12-2013.
-// Copyright (c) 2013 Art Vossberg. All rights reserved.
-//
+/**
+ * Copyright (c) 2014 AWOLart.com. All rights reserved.
+ */
 
 #include "TimeValueOfMoney.hpp"
 
@@ -23,16 +22,17 @@ namespace finance
     * <i>r</i> = the interest rate
     * </p>
     */
-    const double TimeValueOfMoney::DiscountedPresentValueOfFuturePayment(const double C,
-        const int n,
-        const double r)
+    const double TimeValueOfMoney::DiscountedPresentValueOfFuturePayment(
+            const double C,
+            const int n,
+            const double r)
     {
         /*
         * \f[
         *   P = C \times (1 + r)^{-n}
         * \f]
         */
-        return C * std::pow(1 + r, -n);
+        return( C * std::pow(1 + r, -n) );
     }
 
     /**
@@ -43,13 +43,14 @@ namespace finance
     * <i>r</i> = the interest rate
     * </p>
     */
-    const double TimeValueOfMoney::FutureValueOfPresentPayment(const double C,
-        const int n,
-        const double r)
+    const double TimeValueOfMoney::FutureValueOfPresentPayment(
+            const double C,
+            const int n,
+            const double r)
     {
         /*
         * \f[
-        *   FV = P\left(1 + r \right)^n
+        *   FV = PV\left(1 + r \right)^n
         * \f]
         */
         return( C * std::pow(1 + r, n) );
@@ -65,10 +66,11 @@ namespace finance
     * <i>p</i> = the number of compounding periods per annum
     * </p>
     */
-    const double TimeValueOfMoney::DiscreteCompoundingFutureValueOfPresentPayment(const double C,
-        const int n,
-        const double r,
-        const int p)
+    const double TimeValueOfMoney::DiscreteCompoundingFutureValueOfPresentPayment(
+            const double C,
+            const int n,
+            const double r,
+            const int p)
     {
         /*
         * \f[
@@ -88,9 +90,9 @@ namespace finance
     * </p>
     */
     const double TimeValueOfMoney::ContinuousCompoundingFutureValueOfPresentPayment(
-                    const double C,
-                    const int n,
-                    const double r)
+            const double C,
+            const int n,
+            const double r)
     {
         /*
         * \f[

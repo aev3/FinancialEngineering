@@ -9,7 +9,7 @@
 
 #include <cmath>
 
-namespace util
+namespace finance
 {
 
     NewtonsMethod::NewtonsMethod()
@@ -24,6 +24,7 @@ namespace util
      * root of a number.
      * </p>
      *
+     *
      * @param c double that represents the number to be used to calculate the
      * square root
      *
@@ -31,7 +32,10 @@ namespace util
      */
     double NewtonsMethod::sqrt(double c)
     {
-        if(c < 0.0) return std::nan("NaN");
+        if(c < 0.0)
+        {
+            return( std::NAN("1") );
+        }
         double epsilon = 1e-15;
         double t = c;
         while(std::abs(t - c/t) > epsilon * t)
@@ -39,7 +43,7 @@ namespace util
             t = (c/t + t) / 2.0;
         }
 
-        return t;
+        return( t );
 
     }
 

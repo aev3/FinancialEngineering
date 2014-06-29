@@ -5,10 +5,10 @@
  *      Author: art
  */
 
-#ifndef UTIL_NEWTONS_METHOD_HPP
-#define UTIL_NEWTONS_METHOD_HPP
+#ifndef FINANCE_NEWTONS_METHOD_HPP
+#define FINANCE_NEWTONS_METHOD_HPP
 
-namespace util
+namespace finance
 {
 
     class NewtonsMethod
@@ -25,4 +25,4 @@ namespace util
 
 } /* namespace util */
 
-#endif /* UTIL_NEWTONS_METHOD_HPP */
+#endif /* FINANCE_NEWTONS_METHOD_HPP */

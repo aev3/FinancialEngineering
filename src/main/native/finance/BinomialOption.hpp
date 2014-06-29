@@ -66,6 +66,19 @@ namespace finance
 
         const double& price();
 
+        /**
+         * <p>
+         * S = spot price
+         * X = exercise price
+         * r = interest rate (per period)
+         * u = up movement
+         * d = down movement)
+         * </p>
+         */
+        const double& pricingEuroCall(const double& S, const double& X,
+                                      const double& r, const double& u,
+                                      const double& d);
+
         void setOptionType(const OPT_TYPE);
 
         void setStockPrice(const double&);
@@ -76,6 +89,19 @@ namespace finance
         void setMaturityDate(const long&);
         void setTimeToMaturity(const long&);
         void setSteps(const int&);
+
+        /**
+          * <p>
+          * S = Stock price
+          * X = Exercise price
+          * r = interest rate (per period)
+          * u = up movement
+          * d = down movement)
+          * </p>
+          */
+        const double& onePeriodPricing(const double& S, const double& X,
+                                       const double& r, const double& u,
+                                       const double& d);
     };
 
     /**

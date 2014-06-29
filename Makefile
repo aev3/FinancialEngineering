@@ -1,6 +1,6 @@
 #############################################################################
 #
-# Copyright (c) 2014 by Vantage Linguistics LLC		      					
+# Copyright (c) 2014 AWOLart.com. All rights reserved.	      					
 #									      								
 # $Id: Makefile 3596 2010-12-15 15:26:57Z avossberg $			      		
 #									      								
@@ -31,23 +31,16 @@ STATIC_LIB_SUFFIX	= a
 STATIC_LIB		= ${LIB_NAME}-${LIB_VERSION}.${STATIC_LIB_SUFFIX}
 
 ifndef DEBUG
-APP_NAME 		= FinEngTestApp
+APP_NAME 		= FinEngTest
+TEST_SUITE_NAME = FinEngSuiteTest
+OPR_NAME 		= OptionPricingTest
+BSM_NAME		= BlackScholesMertonTest
 else
-APP_NAME 		= FinEngTestAppD
+APP_NAME 		= FinEngTestD
+TEST_SUITE_NAME = FinEngSuiteTestD
+OPR_NAME 		= OptionPricingTestD
+BSM_NAME		= BlackScholesMertonTestD
 endif
-
-ifndef DEBUG
-OPR_NAME 		= OptionPricingTestApp
-else
-OPR_NAME 		= OptionPricingTestAppD
-endif
-
-ifdef DEBUG
-TEST_SUITE_NAME 	= FinEngTestSuiteD
-else
-TEST_SUITE_NAME 	= FinEngTestSuite
-endif  #DEBUG
-
 
 LIB_SRC_DIR 		= ./src/main/native/finance
 APP_SRC_DIR 		= ./src/test/native/finance
@@ -55,7 +48,7 @@ APP_SRC_DIR 		= ./src/test/native/finance
 TEST_SRC_DIR		= ./src/test/native/finance
 DATA_SRC_DIR		= ./data
 
-BUILD_DIR		= build
+BUILD_DIR			= build
 LIB_BUILD_DIR 		= ${BUILD_DIR}/lib
 APP_BUILD_DIR 		= ${BUILD_DIR}/bin
 TEST_BUILD_DIR		= ${BUILD_DIR}/test
@@ -74,7 +67,7 @@ CXX			= g++
 CCWARNINGS		= -Wall
 CXXWARNINGS		= -Wall
 
-CCFLAGS 		= ${CFLAGS} ${CCWARNINGS} -DPIC -fPIC -O2
+CCFLAGS 		= -std=c++11 ${CFLAGS} ${CCWARNINGS} -DPIC -fPIC -O2
 CXXFLAGS 		= -std=c++11 ${CFLAGS} ${CXXWARNINGS} -DPIC -fPIC -O2 -fpermissive
 
 ifdef DEBUG
@@ -91,31 +84,28 @@ CCLDFLAGS 		= ${CCFLAGS} ${SYSLDFLAGS}
 #####################################################
 
 
-BOOST_LIBS 		= -L/usr/local64/lib -lboost_regex-mt
-
-CPPUNIT_LIB 	= -L/usr/local64/lib -lcppunit
-
-LOG4CXX_LIB		= -L/usr/local64/lib -llog4cxx
+#BOOST_LIBS 		= -L/usr/local64/lib -lboost_regex-mt
+#CPPUNIT_LIB 		= -L/usr/local64/lib -lcppunit
+#LOG4CXX_LIB		= -L/usr/local64/lib -llog4cxx
 
 ifdef MACOSX
 LIB_LIBS 		= 
 #${BOOST_LIBS} 
 APP_LIBS		= 
 #${BOOST_LIBS} 
-TEST_LIBS		= -L/usr/lib -ldl ${CPPUNIT_LIB}
+#TEST_LIBS		= -L/usr/lib -ldl ${CPPUNIT_LIB}
 else
 LIB_LIBS 		= 
 #${BOOST_LIBS}
 APP_LIBS		= 
 #${BOOST_LIBS} 
-TEST_LIBS		= ${CPPUNIT_LIB}
+#TEST_LIBS		= ${CPPUNIT_LIB}
 endif
 
 
 CXXLIBS 		= 
 
 CPPFLAGS 		= 
-
 
 INCLUDES 		= -I${LIB_SRC_DIR} -I/usr/local64/include 
 
@@ -148,16 +138,19 @@ SHARED_LINK 	= ${CXX} -shared
 LIB_OBJS 	= 	${LIB_SRC_DIR}/Amortization.o \
 				${LIB_SRC_DIR}/Annuities.o \
 				${LIB_SRC_DIR}/BinomialOption.o \
+				${LIB_SRC_DIR}/BlackScholesMerton.o \
 				${LIB_SRC_DIR}/CashFlows.o \
 				${LIB_SRC_DIR}/NewtonsMethod.o \
 				${LIB_SRC_DIR}/OptionPricing.o \
 				${LIB_SRC_DIR}/TimeValueOfMoney.o 
 
-APP_OBJ 	= 	${APP_SRC_DIR}/FinEngTestApp.o 
+APP_OBJ 	= 	${APP_SRC_DIR}/FinEngTest.o 
 				
+BSM_OBJ		= 	${APP_SRC_DIR}/BlackScholesMertonTest.o
+
 OPR_OBJ		= 	${APP_SRC_DIR}/OptionPricingTest.o
 
-UNIT_TEST_OBJS		= 	${TEST_SRC_DIR}/FinEngTestApp.o
+##UNIT_TEST_OBJS		= 	${TEST_SRC_DIR}/FinEngTest.o
 
 #############################################################################
 # Common commands used to install and clean/uninstall bin/lib artifacts	 	#
@@ -181,7 +174,7 @@ STATIC_LINK 			= ${CXX} -static
 # Build Targets								     	 						#
 #############################################################################
 
-all:: setup lib app opr # unit-tests
+all:: setup lib app opr bsm # unit-tests
 
 setup::
 	${MKDIR} ${LIB_BUILD_DIR}	
@@ -199,6 +192,10 @@ app:: lib ${APP_OBJ}
 opr:: lib ${OPR_OBJ}
 	${CXX} ${CXXLDFLAGS} -o ${APP_BUILD_DIR}/${OPR_NAME} \
 		${OPR_OBJ} ${LIB_OBJS} ${CXXLIBS}
+
+bsm:: lib ${BSM_OBJ}
+	${CXX} ${CXXLDFLAGS} -o ${APP_BUILD_DIR}/${BSM_NAME} \
+		${BSM_OBJ} ${LIB_OBJS} ${CXXLIBS}
 
 
 #############################################################################

@@ -1,8 +1,6 @@
-//
-// Created by Art Vossberg on 07-12-2013.
-// Copyright (c) 2013 Art Vossberg. All rights reserved.
-//
-
+/**
+ * Copyright (c) 2014 AWOLart.com. All rights reserved.
+ */
 
 #ifndef FINANCE_TIME_VALUE_OF_MONEY_HPP
 #define FINANCE_TIME_VALUE_OF_MONEY_HPP
@@ -24,14 +22,20 @@ namespace finance
         *   P = C \times (1 + r)^{-n}
         * \f]
         */
-        const double DiscountedPresentValueOfFuturePayment(const double, const int, const double);
+        const double DiscountedPresentValueOfFuturePayment(
+                const double,
+                const int,
+                const double);
 
         /**
         * \f[
         *   FV = P\left(1 + r \right)^n
         * \f]
         */
-        const double FutureValueOfPresentPayment(const double, const int, const double);
+        const double FutureValueOfPresentPayment(
+                const double,
+                const int,
+                const double);
 
         /**
         * <p>
@@ -40,10 +44,14 @@ namespace finance
         * </p>
         *
         * \f[
-        *   FV = P\left(1 + \frac{r}{m}\right)^{nm}
+        *   FV = PV\left(1 + \frac{r}{m}\right)^{nm}
         * \f]
         */
-        const double DiscreteCompoundingFutureValueOfPresentPayment(const double, const int, const double, const int);
+        const double DiscreteCompoundingFutureValueOfPresentPayment(
+                const double,
+                const int,
+                const double,
+                const int);
 
         /**
          * <p>
@@ -52,10 +60,13 @@ namespace finance
          * </p>
          *
          * \f[
-         *   FV = Pe^{rn}
+         *   FV_T = PVe^{rn}
          * \f]
          */
-        const double ContinuousCompoundingFutureValueOfPresentPayment(const double, const int, const double);
+        const double ContinuousCompoundingFutureValueOfPresentPayment(
+                const double,
+                const int,
+                const double);
 
         virtual ~TimeValueOfMoney();
 
