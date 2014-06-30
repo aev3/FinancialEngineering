@@ -34,7 +34,7 @@ namespace finance
     {
         if(c < 0.0)
         {
-            return( std::NAN("1") );
+            return( nan("NaN") );
         }
         double epsilon = 1e-15;
         double t = c;
