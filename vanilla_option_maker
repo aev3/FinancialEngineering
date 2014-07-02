@@ -23,6 +23,8 @@ SHARED_LIB 			= ${LIB_NAME}-${LIB_VERSION}.${SHARED_LIB_SUFFIX}
 STATIC_LIB_SUFFIX	= a
 STATIC_LIB			= ${LIB_NAME}-${LIB_VERSION}.${STATIC_LIB_SUFFIX}
 #
+TEST_LIB 			= -L/usr/local/lib -lcppunit
+#
 CC			= gcc
 CXX			= g++
 WARNINGS	= -Wall
@@ -51,7 +53,7 @@ lib:: ${LIB_OBJ}
 	${AR} ${LIB_DIR}/${STATIC_LIB} ${LIB_OBJ}
 #
 app:: lib ${APP_OBJ}
-	${CXXCOMPILE} -o ${APP_DIR}/${APP_NAME} ${APP_OBJ} ${LIB_OBJ}
+	${CXXCOMPILE} -o ${APP_DIR}/${APP_NAME} ${TEST_LIB} ${APP_OBJ} ${LIB_OBJ}
 #
 clean::
 	${RM} ${LIB_OBJ}
