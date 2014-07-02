@@ -1,7 +1,7 @@
 /*
  * VanillaOption.hpp
  *
- *  Created on: Jun 29, 2014
+ *  Created: 2014-06-29
  */
 
 #ifndef FINANCE_VANILLA_OPTION_HPP
@@ -51,7 +51,7 @@ namespace finance
              * @param _sigma
              */
             VanillaOption(const double _K, const double _r, const double _T,
-                          const double _S, const double _sigma);
+                            const double _S, const double _sigma);
 
             /**
              * <p>
@@ -111,6 +111,56 @@ namespace finance
              */
             double calc_put_price() const;
     };
+
+    /**
+     * Public access for the strike price, K
+     *
+     * @return double with value of K
+     */
+    inline double VanillaOption::getK() const
+    {
+        return K;
+    }
+
+    /**
+     * Public access for the risk-free rate, r
+     *
+     * @return double with value of r
+     */
+    inline double VanillaOption::getr() const
+    {
+        return r;
+    }
+
+    /**
+     * Public access for the time to maturity, T
+     *
+     * @return double with value of T
+     */
+    inline double VanillaOption::getT() const
+    {
+        return T;
+    }
+
+    /**
+     * Public access for the spot price, S
+     *
+     * @return double with value of S
+     */
+    inline double VanillaOption::getS() const
+    {
+        return S;
+    }
+
+    /**
+     * Public access for the volatility of the asset, sigma
+     *
+     * @return double with value of sigma
+     */
+    inline double VanillaOption::getsigma() const
+    {
+        return sigma;
+    }
 
 } /* namespace finance */
 
