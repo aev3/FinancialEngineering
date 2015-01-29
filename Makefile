@@ -84,30 +84,20 @@ CCLDFLAGS 		= ${CCFLAGS} ${SYSLDFLAGS}
 #####################################################
 
 
-#BOOST_LIBS 		= -L/usr/local64/lib -lboost_regex-mt
-#CPPUNIT_LIB 		= -L/usr/local64/lib -lcppunit
-#LOG4CXX_LIB		= -L/usr/local64/lib -llog4cxx
-
 ifdef MACOSX
-LIB_LIBS 		= 
-#${BOOST_LIBS} 
+LIB_LIBS 	= 
 APP_LIBS		= 
-#${BOOST_LIBS} 
-#TEST_LIBS		= -L/usr/lib -ldl ${CPPUNIT_LIB}
 else
-LIB_LIBS 		= 
-#${BOOST_LIBS}
+LIB_LIBS 	= 
 APP_LIBS		= 
-#${BOOST_LIBS} 
-#TEST_LIBS		= ${CPPUNIT_LIB}
 endif
 
 
 CXXLIBS 		= 
 
-CPPFLAGS 		= 
+CPPFLAGS 	= 
 
-INCLUDES 		= -I${LIB_SRC_DIR} -I/usr/local64/include 
+INCLUDES 	= -I${LIB_SRC_DIR} -I/usr/local/include 
 
 #############################################################################
 # C/C++ compiler options						      						#
@@ -174,7 +164,7 @@ STATIC_LINK 			= ${CXX} -static
 # Build Targets								     	 						#
 #############################################################################
 
-all:: setup lib app opr bsm # unit-tests
+all:: setup lib app opr bsm # TODO: unit-tests
 
 setup::
 	${MKDIR} ${LIB_BUILD_DIR}	
